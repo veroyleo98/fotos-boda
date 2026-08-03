@@ -10,11 +10,9 @@
     html,body{overflow-x:hidden}
     body{background:#EFEEEB;font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased}
 
-    /* Hero */
     .hero{width:100%;line-height:0}
     .hero img{width:100%;height:auto;display:block}
 
-    /* Zona clara grande */
     .light{
       background:#EFEEEB;
       padding:36px 24px 52px;
@@ -24,19 +22,9 @@
     }
     .light-inner{max-width:400px;width:100%}
 
-    .lt-sub{
-      font-family:'Montserrat',sans-serif;
-      font-weight:300;font-size:14px;
-      color:#666;line-height:1.7;
-      margin-bottom:6px;
-    }
-    .lt-hash{
-      font-size:9px;font-weight:300;letter-spacing:3px;
-      text-transform:uppercase;color:#AAA;
-      margin-bottom:30px;
-    }
+    .lt-sub{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14px;color:#666;line-height:1.7;margin-bottom:6px}
+    .lt-hash{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#AAA;margin-bottom:30px}
 
-    /* Botones */
     .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
@@ -65,7 +53,6 @@
       transition:transform .1s;
     }
     .btn-dark:active{transform:scale(.98)}
-
     .btn-ghost-lt{
       display:flex;align-items:center;justify-content:center;
       width:100%;padding:14px;margin-top:10px;
@@ -75,7 +62,6 @@
       border:1px solid #DDD;border-radius:14px;cursor:pointer;
     }
 
-    /* preview */
     .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:16px 0}
     .pcell{aspect-ratio:1;position:relative;background:#e5e5e5;border-radius:10px;overflow:hidden}
     .pcell img{width:100%;height:100%;object-fit:cover;display:block}
@@ -95,73 +81,13 @@
     .ok-msg{font-size:13px;font-weight:300;color:#777;line-height:1.75;margin-bottom:22px}
 
     .view{display:none}.view.active{display:block}
-
     .spind{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
     @keyframes sp{to{transform:rotate(360deg)}}
 
-    /* ── CÁMARA — overlay completo con z-index alto ── */
-    #cam-overlay{
-      position:fixed;
-      top:0;left:0;right:0;bottom:0;
-      z-index:9999;
-      background:#000;
-      display:none;
-      flex-direction:column;
-    }
-    #cam-overlay.show{display:flex}
-
-    #cam-video{
-      flex:1;
-      width:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    #cam-bar{
-      position:fixed;
-      bottom:0;left:0;right:0;
-      background:rgba(0,0,0,.9);
-      padding:20px 24px 44px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      z-index:10000;
-    }
-
-    .cam-btn{
-      background:rgba(255,255,255,.18);
-      border:1px solid rgba(255,255,255,.3);
-      color:#fff;padding:12px 20px;
-      font-family:'Montserrat',sans-serif;font-size:10px;
-      letter-spacing:2px;text-transform:uppercase;
-      cursor:pointer;border-radius:12px;
-      min-width:90px;text-align:center;
-    }
-
-    #shutter-btn{
-      width:76px;height:76px;
-      border-radius:50%;
-      background:#fff;
-      border:5px solid rgba(255,255,255,.4);
-      box-shadow:0 0 0 3px rgba(255,255,255,.15), 0 4px 20px rgba(0,0,0,.5);
-      cursor:pointer;
-      flex-shrink:0;
-      transition:transform .1s;
-      -webkit-tap-highlight-color:transparent;
-    }
-    #shutter-btn:active{transform:scale(.85)}
-
-    canvas#snap{display:none}
+    /* inputs ocultos */
     input[type=file]{display:none}
 
-    .toast{
-      position:fixed;bottom:24px;left:50%;
-      transform:translateX(-50%) translateY(80px);
-      background:#222;color:#fff;
-      padding:12px 22px;font-size:9px;letter-spacing:2px;
-      text-transform:uppercase;white-space:nowrap;
-      border-radius:10px;transition:transform .3s;z-index:99999;
-    }
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#222;color:#fff;padding:12px 22px;font-size:9px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;border-radius:10px;transition:transform .3s;z-index:9999}
     .toast.show{transform:translateX(-50%) translateY(0)}
   </style>
 </head>
@@ -178,17 +104,24 @@
     <p class="lt-sub">Compartí tus fotos y videos<br>con nosotros</p>
     <p class="lt-hash">#bodaveroyleo</p>
     <div class="trio">
-      <button class="pill" onclick="openAlbum()">
+      <!-- Álbum: múltiples fotos -->
+      <button class="pill" onclick="document.getElementById('fi-album').click()">
         <span class="pill-ico">🖼</span>Del álbum
       </button>
-      <button class="pill" onclick="openCam()">
+      <!-- Cámara: abre cámara nativa del celular -->
+      <button class="pill" onclick="document.getElementById('fi-cam').click()">
         <span class="pill-ico">📷</span>Cámara
       </button>
+      <!-- Ver fotos -->
       <a class="pill" href="https://drive.google.com/drive/folders/1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0" target="_blank">
         <span class="pill-ico">👁</span>Ver fotos
       </a>
     </div>
-    <input type="file" id="fi" accept="image/*" multiple onchange="onFiles(this.files)">
+
+    <!-- Input álbum: múltiples imágenes -->
+    <input type="file" id="fi-album" accept="image/*" multiple onchange="onFiles(this.files)">
+    <!-- Input cámara: abre cámara nativa directamente, una foto por vez -->
+    <input type="file" id="fi-cam" accept="image/*" capture="environment" onchange="onFiles(this.files)">
   </div>
 
   <div class="view" id="v2">
@@ -214,84 +147,22 @@
 </div>
 </div>
 
-<!-- CÁMARA — overlay separado del resto del DOM -->
-<div id="cam-overlay">
-  <video id="cam-video" autoplay playsinline muted></video>
-  <canvas id="snap"></canvas>
-</div>
-<div id="cam-bar" style="display:none">
-  <button class="cam-btn" onclick="closeCam()">Cancelar</button>
-  <button id="shutter-btn" onclick="snapPhoto()"></button>
-  <button class="cam-btn" onclick="flipCam()">Voltear</button>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
   const SCRIPT_URL='https://script.google.com/macros/s/AKfycbyJ9KebduWHk2drSnBEL1dwqPT3GKogxq4HDpHMK4HKPdRcqTKrvSk1I5TnLhTF28jg3A/exec';
   const FOLDER_ID='1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0';
-  let files=[],stream=null,facing='environment';
+  let files=[];
 
   function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active')}
-  function openAlbum(){document.getElementById('fi').click()}
-  function onFiles(fl){if(!fl?.length)return;Array.from(fl).forEach(f=>{if(f.type.startsWith('image/'))files.push(f)});renderGrid();show('v2')}
 
-  async function openCam(){
-    try{
-      // Intentar cámara trasera
-      try{
-        stream=await navigator.mediaDevices.getUserMedia({
-          video:{facingMode:{exact:'environment'},width:{ideal:1920},height:{ideal:1080}}
-        });
-      }catch{
-        stream=await navigator.mediaDevices.getUserMedia({
-          video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}}
-        });
-      }
-      const vid=document.getElementById('cam-video');
-      vid.srcObject=stream;
-      vid.onloadedmetadata=()=>vid.play();
-      document.getElementById('cam-overlay').classList.add('show');
-      document.getElementById('cam-bar').style.display='flex';
-    }catch(e){
-      showToast('No se pudo acceder a la cámara');
-      console.error(e);
-    }
-  }
-
-  function closeCam(){
-    stream?.getTracks().forEach(t=>t.stop());
-    stream=null;
-    document.getElementById('cam-overlay').classList.remove('show');
-    document.getElementById('cam-bar').style.display='none';
-  }
-
-  function flipCam(){
-    facing=facing==='user'?'environment':'user';
-    closeCam();
-    navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}}})
-      .then(s=>{
-        stream=s;
-        const vid=document.getElementById('cam-video');
-        vid.srcObject=s;
-        vid.onloadedmetadata=()=>vid.play();
-        document.getElementById('cam-overlay').classList.add('show');
-        document.getElementById('cam-bar').style.display='flex';
-      })
-      .catch(()=>showToast('No se pudo voltear'));
-  }
-
-  function snapPhoto(){
-    const v=document.getElementById('cam-video');
-    const c=document.getElementById('snap');
-    c.width=v.videoWidth||1280;
-    c.height=v.videoHeight||720;
-    c.getContext('2d').drawImage(v,0,0,c.width,c.height);
-    c.toBlob(b=>{
-      if(!b){showToast('Error al capturar');return}
-      files.push(new File([b],'foto_'+Date.now()+'.jpg',{type:'image/jpeg'}));
-      closeCam();renderGrid();show('v2');
-    },'image/jpeg',.92);
+  function onFiles(fl){
+    if(!fl?.length)return;
+    Array.from(fl).forEach(f=>{if(f.type.startsWith('image/'))files.push(f)});
+    // Reset input para poder volver a usarlo
+    document.getElementById('fi-album').value='';
+    document.getElementById('fi-cam').value='';
+    renderGrid();show('v2');
   }
 
   function renderGrid(){
@@ -304,10 +175,12 @@
     });
     const a=document.createElement('div');a.className='addcell';
     a.innerHTML='<span class="addcell-plus">+</span><span>Agregar</span>';
-    a.onclick=openAlbum;g.appendChild(a);
+    a.onclick=()=>document.getElementById('fi-album').click();
+    g.appendChild(a);
     const n=files.length;
     document.getElementById('rev-lbl').textContent=n===1?'1 foto seleccionada':`${n} fotos seleccionadas`;
   }
+
   function rmFile(i){files.splice(i,1);if(!files.length){goV1();return}renderGrid()}
   function goV1(){show('v1')}
 
