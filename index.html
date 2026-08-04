@@ -353,40 +353,25 @@
 
     for(const f of files){
       const isVideo = f.type.startsWith('video/');
-      const ext = isVideo ? '.mp4' : '.jpg';
-      const mime = isVideo ? 'video/mp4' : 'image/jpeg';
+      const ext   = isVideo ? '.mp4' : '.jpg';
+      const mime  = isVideo ? 'video/mp4' : 'image/jpeg';
       const fname = (isVideo ? 'video_' : 'foto_') + Date.now() + ext;
 
       try{
         status.textContent = `Preparando ${isVideo?'video':'foto'} ${done+1} de ${total}...`;
         const b64 = isVideo ? await toB64(f) : await compress(f);
-
         status.textContent = `Subiendo ${isVideo?'video':'foto'} ${done+1} de ${total}...`;
 
-        // Intentar con JSON primero (para confirmar éxito)
-        let ok = false;
-        try{
-          // Mesa en URL para que Apps Script siempre lo reciba
-          const url = MESA ? SCRIPT_URL + '?mesa=' + encodeURIComponent(MESA) : SCRIPT_URL;
-          const resp = await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ base64: b64, name: fname, mimeType: mime })
-          });
-          const data = await resp.json();
-          ok = data.ok;
-        } catch {
-          // Fallback no-cors — mesa igual va en la URL
-          const url2 = MESA ? SCRIPT_URL + '?mesa=' + encodeURIComponent(MESA) : SCRIPT_URL;
-          await fetch(url2, {
-            method: 'POST',
-            body: new URLSearchParams({ base64: b64, name: fname, mimeType: mime }),
-            mode: 'no-cors'
-          });
-          ok = true; // asumimos OK
-        }
+        // Mesa siempre va en la URL — única forma confiable con no-cors
+        const url = SCRIPT_URL + (MESA ? '?mesa=' + encodeURIComponent(MESA) : '');
 
-        if(!ok) errors++;
+        // URLSearchParams + no-cors: la combinación que siempre funciona
+        const body = new URLSearchParams();
+        body.append('base64', b64);
+        body.append('name', fname);
+        body.append('mimeType', mime);
+
+        await fetch(url, { method: 'POST', body: body, mode: 'no-cors' });
 
       } catch(e){
         console.error(e);
