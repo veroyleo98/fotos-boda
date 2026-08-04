@@ -182,7 +182,7 @@
     <!-- Álbum: fotos y videos múltiples -->
     <input type="file" id="fi-album" accept="image/*,video/*" multiple onchange="onFiles(this.files,'album')">
     <!-- Cámara: foto o video con preview -->
-    <input type="file" id="fi-cam" accept="image/*,video/*" capture onchange="onCamFile(this.files)">
+    <input type="file" id="fi-cam" accept="image/*" capture="environment" onchange="onCamFile(this.files)">
   </div>
 
   <!-- VIEW 2: Revisar -->
