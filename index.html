@@ -14,16 +14,24 @@
     .hero img{width:100%;height:auto;display:block}
 
     .light{
-      background:#EFEEEB;
-      padding:36px 24px 52px;
-      text-align:center;
-      min-height:55vh;
+      background:#EFEEEB;padding:28px 24px 48px;
+      text-align:center;min-height:52vh;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
     }
     .light-inner{max-width:400px;width:100%}
 
+    /* Mesa badge */
+    .mesa-badge{
+      display:inline-block;
+      background:#1A1A18;color:#fff;
+      font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+      padding:6px 16px;border-radius:20px;
+      margin-bottom:18px;
+    }
+    .mesa-badge.hidden{display:none}
+
     .lt-sub{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14px;color:#666;line-height:1.7;margin-bottom:6px}
-    .lt-hash{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#AAA;margin-bottom:30px}
+    .lt-hash{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#AAA;margin-bottom:28px}
 
     .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -50,9 +58,11 @@
       letter-spacing:2.5px;text-transform:uppercase;
       border:none;border-radius:16px;cursor:pointer;
       box-shadow:0 4px 16px rgba(0,0,0,.15);
-      transition:transform .1s;
+      transition:transform .1s, opacity .2s;
     }
     .btn-dark:active{transform:scale(.98)}
+    .btn-dark:disabled{opacity:.5}
+
     .btn-ghost-lt{
       display:flex;align-items:center;justify-content:center;
       width:100%;padding:14px;margin-top:10px;
@@ -62,32 +72,85 @@
       border:1px solid #DDD;border-radius:14px;cursor:pointer;
     }
 
+    /* Preview grid */
     .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:16px 0}
-    .pcell{aspect-ratio:1;position:relative;background:#e5e5e5;border-radius:10px;overflow:hidden}
-    .pcell img{width:100%;height:100%;object-fit:cover;display:block}
-    .rm{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.5);color:#fff;border:none;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-    .addcell{aspect-ratio:1;border:1.5px dashed #CCC;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:#CCC;font-size:8px;letter-spacing:1px;text-transform:uppercase}
+    .pcell{
+      aspect-ratio:1;position:relative;
+      background:#e5e5e5;border-radius:10px;overflow:hidden;
+    }
+    .pcell img,.pcell video{width:100%;height:100%;object-fit:cover;display:block}
+    .pcell .vid-badge{
+      position:absolute;bottom:4px;left:4px;
+      background:rgba(0,0,0,.6);color:#fff;
+      font-size:7px;letter-spacing:1px;padding:2px 6px;border-radius:4px;
+      text-transform:uppercase;
+    }
+    .rm{
+      position:absolute;top:4px;right:4px;width:20px;height:20px;
+      border-radius:50%;background:rgba(0,0,0,.55);color:#fff;
+      border:none;font-size:9px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .addcell{
+      aspect-ratio:1;border:1.5px dashed #CCC;border-radius:10px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:3px;cursor:pointer;color:#CCC;font-size:8px;letter-spacing:1px;text-transform:uppercase;
+    }
     .addcell-plus{font-size:22px;line-height:1}
     .rev-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:4px;font-weight:300}
 
-    .pbox{background:#E8E7E4;border-radius:12px;padding:12px 14px;margin-bottom:12px}
+    /* Progress */
+    .pbox{background:#E8E7E4;border-radius:12px;padding:14px 16px;margin-bottom:12px}
     .prow{display:flex;justify-content:space-between;margin-bottom:8px}
     .plbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888}
     .pcnt{font-size:9px;color:#AAA}
-    .ptrack{height:2px;background:#DDD;border-radius:2px;overflow:hidden}
+    .ptrack{height:3px;background:#DDD;border-radius:2px;overflow:hidden}
     .pfill{height:100%;background:#1A1A18;width:0%;transition:width .35s;border-radius:2px}
+    /* Estados de cada archivo */
+    .file-status{font-size:10px;color:#888;margin-bottom:8px;min-height:16px}
 
-    .ok-names{font-family:'Great Vibes',cursive;font-size:54px;color:#1A1A18;margin:12px 0 8px}
+    /* Success */
+    .ok-icon{font-size:48px;margin-bottom:8px}
     .ok-msg{font-size:15px;font-weight:400;color:#333;line-height:1.75;margin-bottom:22px}
+    .ok-detail{font-size:11px;color:#AAA;letter-spacing:1px;margin-bottom:20px}
+
+    /* Preview camera modal */
+    .preview-modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.92);
+      z-index:9999;display:none;
+      flex-direction:column;align-items:center;justify-content:center;
+      padding:20px;
+    }
+    .preview-modal.show{display:flex}
+    .preview-modal img,.preview-modal video{
+      max-width:100%;max-height:60vh;
+      border-radius:12px;object-fit:contain;
+    }
+    .preview-actions{
+      display:flex;gap:12px;margin-top:20px;width:100%;max-width:360px;
+    }
+    .prev-btn{
+      flex:1;padding:15px;border:none;border-radius:14px;
+      font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;
+      letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+    }
+    .prev-btn-ok{background:#1A1A18;color:#fff}
+    .prev-btn-retry{background:#fff;color:#333;border:1px solid #DDD}
 
     .view{display:none}.view.active{display:block}
     .spind{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
     @keyframes sp{to{transform:rotate(360deg)}}
 
-    /* inputs ocultos */
     input[type=file]{display:none}
 
-    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#222;color:#fff;padding:12px 22px;font-size:9px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;border-radius:10px;transition:transform .3s;z-index:9999}
+    .toast{
+      position:fixed;bottom:24px;left:50%;
+      transform:translateX(-50%) translateY(80px);
+      background:#222;color:#fff;
+      padding:12px 22px;font-size:9px;letter-spacing:2px;
+      text-transform:uppercase;white-space:nowrap;
+      border-radius:10px;transition:transform .3s;z-index:99999;
+    }
     .toast.show{transform:translateX(-50%) translateY(0)}
   </style>
 </head>
@@ -100,43 +163,49 @@
 <div class="light">
 <div class="light-inner">
 
+  <!-- VIEW 1: Elegir -->
   <div class="view active" id="v1">
+    <div class="mesa-badge hidden" id="mesa-badge"></div>
     <p class="lt-sub">Compartí tus fotos y videos<br>con nosotros</p>
     <p class="lt-hash">#bodaveroyleo</p>
     <div class="trio">
-      <!-- Álbum: múltiples fotos -->
       <button class="pill" onclick="document.getElementById('fi-album').click()">
         <span class="pill-ico">🖼</span>Del álbum
       </button>
-      <!-- Cámara: abre cámara nativa del celular -->
       <button class="pill" onclick="document.getElementById('fi-cam').click()">
         <span class="pill-ico">📷</span>Cámara
       </button>
-      <!-- Ver fotos -->
       <a class="pill" href="https://drive.google.com/drive/folders/1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0" target="_blank">
         <span class="pill-ico">👁</span>Ver fotos
       </a>
     </div>
-
-    <!-- Input álbum: múltiples imágenes -->
-    <input type="file" id="fi-album" accept="image/*" multiple onchange="onFiles(this.files)">
-    <!-- Input cámara: abre cámara nativa directamente, una foto por vez -->
-    <input type="file" id="fi-cam" accept="image/*" capture onchange="onFiles(this.files)">
+    <!-- Álbum: fotos y videos múltiples -->
+    <input type="file" id="fi-album" accept="image/*,video/*" multiple onchange="onFiles(this.files,'album')">
+    <!-- Cámara: foto o video con preview -->
+    <input type="file" id="fi-cam" accept="image/*,video/*" capture onchange="onCamFile(this.files)">
   </div>
 
+  <!-- VIEW 2: Revisar -->
   <div class="view" id="v2">
-    <p class="rev-lbl" id="rev-lbl">0 fotos</p>
+    <p class="rev-lbl" id="rev-lbl">0 archivos</p>
     <div class="pgrid" id="pgrid"></div>
     <div class="pbox" id="prog" style="display:none">
-      <div class="prow"><span class="plbl" id="plbl">Subiendo</span><span class="pcnt" id="pcnt">0/0</span></div>
+      <div class="prow">
+        <span class="plbl" id="plbl">Subiendo</span>
+        <span class="pcnt" id="pcnt">0/0</span>
+      </div>
       <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+      <div class="file-status" id="file-status"></div>
     </div>
     <button class="btn-dark" id="upbtn" onclick="doUpload()">Subir fotos</button>
     <button class="btn-ghost-lt" onclick="goV1()">← Volver</button>
   </div>
 
+  <!-- VIEW 3: Éxito -->
   <div class="view" id="v3">
+    <div class="ok-icon">✨</div>
     <p class="ok-msg">¡Muchas gracias!<br>Tus fotos ya están en nuestro álbum.<br>Las vamos a atesorar para siempre.</p>
+    <p class="ok-detail" id="ok-detail"></p>
     <div class="duo">
       <button class="pill" onclick="resetAll()"><span class="pill-ico">📷</span>Subir más</button>
       <a class="pill" href="https://drive.google.com/drive/folders/1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0" target="_blank"><span class="pill-ico">👁</span>Ver fotos</a>
@@ -146,85 +215,245 @@
 </div>
 </div>
 
+<!-- Preview modal para cámara -->
+<div class="preview-modal" id="preview-modal">
+  <div id="preview-content"></div>
+  <div class="preview-actions">
+    <button class="prev-btn prev-btn-retry" onclick="retryCamera()">🔄 Repetir</button>
+    <button class="prev-btn prev-btn-ok" onclick="confirmPreview()">✓ Usar esta</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-  const SCRIPT_URL='https://script.google.com/macros/s/AKfycbyJ9KebduWHk2drSnBEL1dwqPT3GKogxq4HDpHMK4HKPdRcqTKrvSk1I5TnLhTF28jg3A/exec';
-  const FOLDER_ID='1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0';
-  let files=[];
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1wHV5RhOMN9wTQpD-GWI0HNbF98zd4ecDoYxaNBUMOULxW1RT-QszBUHBlFj0uBg9NA/exec';
+  const FOLDER_ID  = '1QyjGJRNOJl7FL4PRYrMggbg6Kq7boAc0';
 
-  function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active')}
+  // Detectar número de mesa desde URL (?mesa=3)
+  const urlParams = new URLSearchParams(window.location.search);
+  const MESA = urlParams.get('mesa') || '';
 
-  function onFiles(fl){
-    if(!fl?.length)return;
-    Array.from(fl).forEach(f=>{if(f.type.startsWith('image/'))files.push(f)});
-    // Reset input para poder volver a usarlo
-    document.getElementById('fi-album').value='';
-    document.getElementById('fi-cam').value='';
-    renderGrid();show('v2');
+  if (MESA) {
+    const badge = document.getElementById('mesa-badge');
+    badge.textContent = 'Mesa ' + MESA;
+    badge.classList.remove('hidden');
+  }
+
+  let files = [];
+  let pendingCamFile = null; // archivo en espera de confirmar preview
+
+  function show(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Desde álbum — múltiples archivos, sin preview
+  function onFiles(fl, source){
+    if(!fl?.length) return;
+    Array.from(fl).forEach(f => files.push(f));
+    document.getElementById('fi-album').value = '';
+    document.getElementById('fi-cam').value = '';
+    renderGrid();
+    show('v2');
+  }
+
+  // Desde cámara — mostrar preview antes de confirmar
+  function onCamFile(fl){
+    if(!fl?.length) return;
+    const f = fl[0];
+    pendingCamFile = f;
+    document.getElementById('fi-cam').value = '';
+
+    const container = document.getElementById('preview-content');
+    container.innerHTML = '';
+
+    if(f.type.startsWith('video/')){
+      const vid = document.createElement('video');
+      vid.src = URL.createObjectURL(f);
+      vid.controls = true;
+      vid.style.cssText = 'max-width:100%;max-height:60vh;border-radius:12px';
+      container.appendChild(vid);
+    } else {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(f);
+      img.style.cssText = 'max-width:100%;max-height:60vh;border-radius:12px;object-fit:contain';
+      container.appendChild(img);
+    }
+
+    document.getElementById('preview-modal').classList.add('show');
+  }
+
+  function confirmPreview(){
+    if(pendingCamFile){
+      files.push(pendingCamFile);
+      pendingCamFile = null;
+    }
+    document.getElementById('preview-modal').classList.remove('show');
+    renderGrid();
+    show('v2');
+  }
+
+  function retryCamera(){
+    pendingCamFile = null;
+    document.getElementById('preview-modal').classList.remove('show');
+    // Abrir cámara de nuevo
+    setTimeout(()=>document.getElementById('fi-cam').click(), 200);
   }
 
   function renderGrid(){
-    const g=document.getElementById('pgrid');g.innerHTML='';
-    files.forEach((f,i)=>{
-      const url=URL.createObjectURL(f);
-      const d=document.createElement('div');d.className='pcell';
-      d.innerHTML=`<img src="${url}"><button class="rm" onclick="rmFile(${i})">✕</button>`;
+    const g = document.getElementById('pgrid');
+    g.innerHTML = '';
+    files.forEach((f,i) => {
+      const url = URL.createObjectURL(f);
+      const d = document.createElement('div');
+      d.className = 'pcell';
+      const isVideo = f.type.startsWith('video/');
+      if(isVideo){
+        d.innerHTML = `<video src="${url}" muted playsinline></video>
+          <span class="vid-badge">video</span>
+          <button class="rm" onclick="rmFile(${i})">✕</button>`;
+      } else {
+        d.innerHTML = `<img src="${url}">
+          <button class="rm" onclick="rmFile(${i})">✕</button>`;
+      }
       g.appendChild(d);
     });
-    const a=document.createElement('div');a.className='addcell';
-    a.innerHTML='<span class="addcell-plus">+</span><span>Agregar</span>';
-    a.onclick=()=>document.getElementById('fi-album').click();
+
+    // Botón agregar más
+    const a = document.createElement('div');
+    a.className = 'addcell';
+    a.innerHTML = '<span class="addcell-plus">+</span><span>Agregar</span>';
+    a.onclick = () => document.getElementById('fi-album').click();
     g.appendChild(a);
-    const n=files.length;
-    document.getElementById('rev-lbl').textContent=n===1?'1 foto seleccionada':`${n} fotos seleccionadas`;
+
+    const n = files.length;
+    document.getElementById('rev-lbl').textContent =
+      n === 1 ? '1 archivo seleccionado' : `${n} archivos seleccionados`;
   }
 
-  function rmFile(i){files.splice(i,1);if(!files.length){goV1();return}renderGrid()}
-  function goV1(){show('v1')}
+  function rmFile(i){ files.splice(i,1); if(!files.length){goV1();return} renderGrid() }
+  function goV1(){ show('v1') }
 
   async function doUpload(){
-    if(!files.length){showToast('Elegí al menos una foto');return}
-    const btn=document.getElementById('upbtn');
-    btn.disabled=true;btn.innerHTML='<span class="spind"></span>&nbsp; Subiendo...';
-    document.getElementById('prog').style.display='block';
-    const fill=document.getElementById('pfill'),lbl=document.getElementById('plbl'),cnt=document.getElementById('pcnt');
-    let done=0,total=files.length;
+    if(!files.length){ showToast('Elegí al menos una foto'); return }
+
+    const btn    = document.getElementById('upbtn');
+    const prog   = document.getElementById('prog');
+    const fill   = document.getElementById('pfill');
+    const lbl    = document.getElementById('plbl');
+    const cnt    = document.getElementById('pcnt');
+    const status = document.getElementById('file-status');
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spind"></span>&nbsp; Subiendo...';
+    prog.style.display = 'block';
+
+    let done = 0, errors = 0, total = files.length;
+
     for(const f of files){
+      const isVideo = f.type.startsWith('video/');
+      const ext = isVideo ? '.mp4' : '.jpg';
+      const mime = isVideo ? 'video/mp4' : 'image/jpeg';
+      const fname = (isVideo ? 'video_' : 'foto_') + Date.now() + ext;
+
       try{
-        lbl.textContent=`Preparando ${done+1}...`;
-        const b64=await compress(f);
-        lbl.textContent=`Subiendo ${done+1}...`;
-        const body=new URLSearchParams();
-        body.append('base64',b64);body.append('name','foto_'+Date.now()+'.jpg');body.append('mimeType','image/jpeg');
-        await fetch(SCRIPT_URL,{method:'POST',body,mode:'no-cors'});
-      }catch(e){console.error(e)}
-      done++;fill.style.width=Math.round(done/total*100)+'%';cnt.textContent=`${done}/${total}`;
+        status.textContent = `Preparando ${isVideo?'video':'foto'} ${done+1} de ${total}...`;
+        const b64 = isVideo ? await toB64(f) : await compress(f);
+
+        status.textContent = `Subiendo ${isVideo?'video':'foto'} ${done+1} de ${total}...`;
+
+        // Intentar con JSON primero (para confirmar éxito)
+        let ok = false;
+        try{
+          // Mesa en URL para que Apps Script siempre lo reciba
+          const url = MESA ? SCRIPT_URL + '?mesa=' + encodeURIComponent(MESA) : SCRIPT_URL;
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ base64: b64, name: fname, mimeType: mime })
+          });
+          const data = await resp.json();
+          ok = data.ok;
+        } catch {
+          // Fallback no-cors — mesa igual va en la URL
+          const url2 = MESA ? SCRIPT_URL + '?mesa=' + encodeURIComponent(MESA) : SCRIPT_URL;
+          await fetch(url2, {
+            method: 'POST',
+            body: new URLSearchParams({ base64: b64, name: fname, mimeType: mime }),
+            mode: 'no-cors'
+          });
+          ok = true; // asumimos OK
+        }
+
+        if(!ok) errors++;
+
+      } catch(e){
+        console.error(e);
+        errors++;
+      }
+
+      done++;
+      fill.style.width = Math.round(done/total*100) + '%';
+      cnt.textContent  = `${done}/${total}`;
     }
-    await new Promise(r=>setTimeout(r,800));
-    files=[];show('v3');
+
+    await new Promise(r => setTimeout(r, 600));
+
+    const detail = MESA ? `Guardado en carpeta Mesa ${MESA}` : '';
+    document.getElementById('ok-detail').textContent = detail;
+
+    if(errors > 0 && errors === total){
+      showToast('Error al subir. Intentá de nuevo.');
+      btn.disabled = false;
+      btn.innerHTML = 'Subir fotos';
+      prog.style.display = 'none';
+    } else {
+      files = [];
+      show('v3');
+    }
   }
 
+  // Comprimir imágenes
   function compress(file){
     return new Promise((res,rej)=>{
-      const img=new Image(),url=URL.createObjectURL(file);
-      img.onload=()=>{
-        const MAX=1200;let w=img.width,h=img.height;
-        if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX}else{w=Math.round(w*MAX/h);h=MAX}}
-        const c=document.createElement('canvas');c.width=w;c.height=h;
+      const img = new Image(), url = URL.createObjectURL(file);
+      img.onload = () => {
+        const MAX=1200; let w=img.width, h=img.height;
+        if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX}else{w=Math.round(w*MAX/h);h=MAX} }
+        const c=document.createElement('canvas'); c.width=w; c.height=h;
         c.getContext('2d').drawImage(img,0,0,w,h);
-        URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.75).split(',')[1]);
-      };img.onerror=rej;img.src=url;
+        URL.revokeObjectURL(url);
+        res(c.toDataURL('image/jpeg',.75).split(',')[1]);
+      };
+      img.onerror=rej; img.src=url;
+    });
+  }
+
+  // Videos: base64 directo
+  function toB64(file){
+    return new Promise((res,rej)=>{
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
     });
   }
 
   function resetAll(){
-    files=[];document.getElementById('prog').style.display='none';document.getElementById('pfill').style.width='0%';
-    const btn=document.getElementById('upbtn');btn.disabled=false;btn.innerHTML='Subir fotos';show('v1');
+    files = [];
+    document.getElementById('prog').style.display = 'none';
+    document.getElementById('pfill').style.width = '0%';
+    document.getElementById('file-status').textContent = '';
+    const btn = document.getElementById('upbtn');
+    btn.disabled = false; btn.innerHTML = 'Subir fotos';
+    show('v1');
   }
+
   function showToast(msg){
-    const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),3000);
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),3500);
   }
 </script>
 </body>
